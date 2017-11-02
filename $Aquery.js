@@ -2,8 +2,6 @@
 const $Aquery = function foo(query, parent = document){
 	return (function ($aquery){
 
-			
-		
 			if (typeof query == "string"){
 				query = query.split(" ");
 				console.log("query: ", query)
@@ -94,79 +92,3 @@ const $Aquery = function foo(query, parent = document){
 	// template.innerHTML = html;
 	// return template.content.firstChild;
 // }
-
-
-
-const $depreciated = function foo(type, string, num = false, parent = document){
-	return (function ($aquery){
-		//console.log("parent",parent)
-		if (type == "#" || string instanceof Element || num !== false){
-			if (type == "#")
-				$aquery.raw = parent.getElementById(string);
-			else if (type == ".")
-				$aquery.raw = parent.getElementsByClassName(string)[num]
-			else if (type == "raw")
-				$aquery.raw = string
-			else
-				$aquery.raw = parent.getElementsByTagName(string)[num]
-			
-			$aquery.on = function(type, callback){
-				this.raw.addEventListener(type, callback);
-			}
-			
-			$aquery.hover = function(hoverin, hoverout){
-				this.raw.addEventListener("mouseenter", hoverin);
-				this.raw.addEventListener("mouseleave", hoverout);
-			}
-			
-			$aquery.text = function(text){
-				this.raw.innerHTML = text;
-			}
-			
-			$aquery.remove = function(){
-				this.raw.parentElement.removeChild(this.raw)
-			}
-			
-			$aquery.$ = function(type, string, num = false){return foo(type,string ,num, this.raw)}
-		}
-		else {
-			if (type == "."){
-				$aquery.raw = parent.getElementsByClassName(string)
-				console.log($aquery.raw)
-			}
-			else if (type == "raw"){
-				$aquery.raw = string
-			}
-			else{
-				$aquery.raw = parent.getElementsByTagName(string)
-			}
-			$aquery.length = $aquery.raw.length;
-			
-			$aquery.first = function(){return foo("raw", $aquery.raw[0] )};
-			
-			$aquery.last = function(){return foo("raw", $aquery.raw[$aquery.raw.length -1] )};
-			
-			$aquery.at = function(index){ return foo("raw", $aquery.raw[index]) };
-			
-			$aquery.on = function(type, callback){
-				for (let i = 0; i>this.length; i++){
-					this.raw[i].addEventListener(type, callback);
-				}
-			}
-			
-			$aquery.remove = function(){
-				for (let i = 0; i< this.length; i++){
-					if(this.raw[i] && this.raw[i].parentElement){
-						this.raw[i].parentElement.removeChild(this.raw[i]);
-					}
-					
-				}
-			}
-			
-			
-			
-		}
-		
-		return $aquery;
-	})({})
-};
