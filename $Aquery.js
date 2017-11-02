@@ -4,9 +4,10 @@ const $Aquery = function foo(query, parent = document){
 
 			if (typeof query == "string"){
 				query = query.split(" ");
-				console.log("query: ", query)
+				
+				// console.log("query: ", query)
+				
 				for (let i = 0; i<query.length; i++){
-					console.log("parent", parent, i)
 					
 					if (query[i].charAt(0) == "#")
 						parent = parent.getElementById(query[i].substr(1));
@@ -25,7 +26,6 @@ const $Aquery = function foo(query, parent = document){
 							parent = parent[query[i]];
 						}
 					}
-					console.log(parent.constructor.name)
 				}
 				
 				$aquery.raw = parent;
