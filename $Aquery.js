@@ -1,5 +1,5 @@
 
-const $Aquery = $ = function foo(query, parent = document){
+const $Aquery = function foo(query, parent = document){
 	return (function ($aquery){
 
 			
